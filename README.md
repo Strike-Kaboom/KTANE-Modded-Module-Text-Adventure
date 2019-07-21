@@ -1,1 +1,1 @@
-#[ModKit Wiki](../../wiki)
+Text Adventure KTANE Modded Module
