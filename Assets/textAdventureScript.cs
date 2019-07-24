@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using KModkit;
+using System.Text.RegularExpressions;
 
 public class textAdventureScript : MonoBehaviour
 {
@@ -56,4 +57,17 @@ public class textAdventureScript : MonoBehaviour
             }
         }
     }
-}
+
+    #pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"!{0} press yes [Presses the yes button] | !{0} press no [Presses the no button] | !{0} reset [Resets all inputs] | Yes's and No's can be chained";
+    #pragma warning restore 414
+
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+        if (Regex.IsMatch(command, @"^\s*reset\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            yield return null;
+            madeAns = "";
+            Debug.LogFormat("[Faulty Digital Root #{0}] Reset of inputs triggered! (TP)", moduleId);
+            inputs.GetComponent<MeshRenderer>().material = ledmats[0];
+            yield break;
