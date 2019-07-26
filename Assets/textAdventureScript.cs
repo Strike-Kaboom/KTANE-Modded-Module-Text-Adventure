@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using KModkit;
 using System.Text.RegularExpressions;
+using UnityEngine.Random;
 
 public class textAdventureScript : MonoBehaviour
 {
@@ -19,15 +20,41 @@ public class textAdventureScript : MonoBehaviour
     public bool typingActive; //This bool will determine whether the typing interface is active.
     public TextMesh textToEdit; //This is the physical textmesh that is going to display your text
 
-    private void Start() //Runs once at the Start
+    void Start()
     {
-        textToEdit.text = ""; //Sets the textmesh text to blank/empty
+        _moduleId = _moduleIdCounter++;
+        module.OnActivate += Activate;
+    }
+
+    void Activate()
+    {
+        _lightsOn = true;
+        Init();
+    }
+
+    private void Awake()
+    {
+        for (int i = 0; i < 47; i++)
+        {
+            var j = i;
+            buttons[i].OnInteract += delegate {
+                handleKeyPress(j);
+                return false;
+            };
+        }
+        submit.OnInteract += delegate {
+            handleSubmit();
+            return false;
+        };
     }
 
     public void EnableTextInterface() //Link this to a button on the module that you want to press in order to activate the input interface.
-    {
+        {
+
+        else !EnableTextInterface == false;
+
         typingActive = !typingActive; //sets true if false and false if true
-    }
+        }
 
     void Update() //This updates every frame
     {
@@ -58,6 +85,24 @@ public class textAdventureScript : MonoBehaviour
         }
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"!{0} press yes [Presses the yes button] | !{0} press no [Presses the no button] | !{0} reset [Resets all inputs] | Yes's and No's can be chained";
     #pragma warning restore 414
